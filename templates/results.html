@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html prefix="og: http://ogp.me/ns# schema: http://schema.org/" typeof="schema:WebPage">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Trove API Console</title>
+    <meta property="og:title" content="Trove API Console" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://troveconsole.herokuapp.com/" />
+    <meta property="og:image" content="http://troveconsole.herokuapp.com/static/img/code.png" />
+    <meta property="og:description" content="Explore the workings of the Trove API with this simple console." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wragge" />
+    <meta name="schema:thumbnailUrl" content="http://troveconsole.herokuapp.com/static/img/code.png">
 
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -21,8 +29,8 @@
   <body>
     <div class="container">
     <header>
-      <h1>Trove API Console</h1>
-      <p class="text-muted">Explore the workings of the Trove API</p>
+      <h1 property="schema:name">Trove API Console</h1>
+      <p property="schema:description" class="text-muted">Explore the workings of the Trove API</p>
     </header>
       <form class="form" action="" method="get" role="form">
         <div class="form-group">
@@ -213,7 +221,7 @@
           <tr>
             <td>
               <ul>
-                <li>zone: newspaper</li>
+                <li>zone: book</li>
                 <li>q (query): weather</li>
                 <li>encoding: json</li>
                 <li>facet: format</li>
@@ -222,6 +230,18 @@
             </td>
             <td>
               <a href="/?url=http%3A%2F%2Fapi.trove.nla.gov.au%2Fresult%3Fq%3Dweather%26zone%3Dbook%26encoding%3Djson%26facet%3Dformat%26n%3D0">http://api.trove.nla.gov.au/result?q=weather&zone=book&encoding=json&facet=format&n=0</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ul>
+                <li>zone: list</li>
+                <li>q (query): war memorials</li>
+                <li>encoding: json</li>
+              </ul>
+            </td>
+            <td>
+              <a href="/?url=http%3A%2F%2Fapi.trove.nla.gov.au%2Fresult%3Fq%3Dwar+memorials%26zone%3Dlist%26encoding%3Djson">http://api.trove.nla.gov.au/result?q=war memorials&zone=list&encoding=json</a>
             </td>
           </tr>
         </table>
@@ -282,6 +302,20 @@
             </td>
             <td>
               <a href="/?url=http%3A%2F%2Fapi.trove.nla.gov.au%2Fwork%2F34769014%3Fencoding%3Djson%26include%3DworkVersions%2Choldings%26reclevel%3Dfull">http://api.trove.nla.gov.au/work/34769014?encoding=json&include=workVersions,holdings&reclevel=full</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ul>
+                <li>type: list</li>
+                <li>list id: 1442</li>
+                <li>reclevel: full</li>
+                <li>include: listItems
+                <li>encoding: json</li>
+              </ul>
+            </td>
+            <td>
+              <a href="/?url=http%3A%2F%2Fapi.trove.nla.gov.au%2Flist%2F1442%3Fencoding%3Djson%26reclevel%3Dfull%26include%3DlistItems">http://api.trove.nla.gov.au/list/1442?encoding=json&reclevel=full&include=listItems</a>
             </td>
           </tr>
         </table>
@@ -357,7 +391,7 @@
 
       
     <footer>
-      <p><small>Created by <a href="http://discontents.com.au/about-me/">Tim Sherratt</a> (<a href="http://twitter.com/wragge">@wragge</a>).</small></p>
+      <p><small><span property="schema:creator" typeof="schema:Person">Created by <a property="schema:sameAs" href="http://discontents.com.au/about-me/"><span property="schema:name">Tim Sherratt</span></a> (<a property="schema:sameAs" href="http://twitter.com/wragge">@wragge</a>).</span></small></p>
     </footer>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
