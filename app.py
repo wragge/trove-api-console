@@ -3,7 +3,9 @@ from urllib2 import urlopen, URLError, HTTPError
 from urllib import unquote_plus, quote_plus
 import re
 from flask import request, render_template
-from credentials import API_KEY
+import os
+
+TROVE_API_KEY = os.environ['TROVE_API_KEY']
 
 app = Flask(__name__)
 
@@ -18,7 +20,7 @@ def show_api_results():
         url = unquote_plus(url)
         if re.search(r'^http:\/\/api\.trove\.nla\.gov\.au', url):
             format = 'json' if 'json' in url else 'xml'
-            api_url = '{}&key={}'.format(url, API_KEY) if '?' in url else '{}?key={}'.format(url, API_KEY)
+            api_url = '{}&key={}'.format(url, TROVE_API_KEY) if '?' in url else '{}?key={}'.format(url, TROVE_API_KEY)
             try:
                 response = urlopen(quote_plus(api_url, safe="%/:=&?~#+!$,;'@()*[]"))
             except HTTPError, e:
