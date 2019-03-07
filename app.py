@@ -19,7 +19,7 @@ def show_api_results():
     url = request.args.get('url', '')
     if url:
         url = unquote_plus(url)
-        if re.search(r'^http:\/\/api\.trove\.nla\.gov\.au', url):
+        if re.search(r'^https?:\/\/api\.trove\.nla\.gov\.au', url):
             format = 'json' if 'json' in url else 'xml'
             api_url = '{}&key={}'.format(url, TROVE_API_KEY) if '?' in url else '{}?key={}'.format(url, TROVE_API_KEY)
             try:
