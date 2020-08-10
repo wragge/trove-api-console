@@ -615,13 +615,13 @@ sections:
                   value: Article
                   value_note: limit the results to articles so we don't get the records for the periodicals themselves
           - heading: Find out of copyright or openly licensed photographs
-            url: 'https://api.trove.nla.gov.au/v2/result?q=weather "https://nla.gov.au/nla.obj-68375465"&zone=article&encoding=json&l-format=Article'
+            url: 'https://api.trove.nla.gov.au/v2/result?q=rights:Free&zone=picture&encoding=json&include=workversions'
             note: This facet only works with records where the copyright status is specified in the record. Some out-of-copyright photographs might be missing from results because their status has not been identified. A search for photos created before 1955 using `date[* TO 1954]` might find additional out-of-copyright images.
             params:
                 - param: q
                   param_note: the search query (required)
-                  value: weather "https://nla.gov.au/nla.obj-68375465"
-                  value_note:
+                  value: rights:Free
+                  value_note: see the Trove help documentation for a [full list of possible values](https://trove.nla.gov.au/partners/partner-services/adding-collections-trove/enrich-your-data/licensing-and-re-use) for `rights`
                 - param: zone
                   param_note: zone(s) to search in (required)
                   value: picture
@@ -634,10 +634,10 @@ sections:
                   param_note: format of work
                   value: Photo
                   value_note:
-                - param: l-rights
-                  param_note: licensing category
-                  value: Free
-                  value_note: See the Trove help documentation for a [full list of possible values](https://trove.nla.gov.au/partners/partner-services/adding-collections-trove/enrich-your-data/licensing-and-re-use).
+                - param: include
+                  param_note:
+                  value: workversions
+                  value_note: the rights statements are attached to versions, so to see them you need to ask for the full versions data
     - heading: Get individual records
       section_note: Article or work identifiers are supplied as part of the url rather than as a query parameter. For example, `https://api.trove.nla.gov.au/v2/newspaper/41697877` returns the details of the article with the identifier `41697877`.
       examples:
