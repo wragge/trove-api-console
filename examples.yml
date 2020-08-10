@@ -1,0 +1,773 @@
+sections:
+    - heading: Basic search
+      section_note:
+      examples:
+          - heading: Search all zones
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=all'
+            params:
+                - param: q
+                  param_note: the search query (**required**)
+                  value: wragge
+                  value_note: use a space or a '+' to get everything
+                - param: zone
+                  param_note: zone(s) to search in (**required**)
+                  value: all
+                  value_note: possible values are 'all', 'newspaper', 'gazette', 'book', 'article', 'picture', 'music', 'map', 'collection', 'list', 'people'
+          - heading: Search in multiple zones
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=book,newspaper'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: book,newspaper
+                  value_note: separate multiple zones with commas
+          - heading: Search in a single zone
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+          - heading: Change the results format
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json'
+            params:
+                - param: q
+                  param_note: the search query
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note: possible values are 'xml' (default) or 'json'
+          - heading: Change the number of results
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&n=100'
+            params:
+                - param: q
+                  param_note: the search query
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note: possible values are 'xml' (default) or 'json'
+                - param: n
+                  param_note: number of results
+                  value: 100
+                  value_note: possible values are 0 to 100 (default is 20)
+          - heading: Change the sort order
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&sort_by=dateasc'
+            params:
+                - param: q
+                  param_note: the search query
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note: possible values are 'xml' (default) or 'json'
+                - param: sortby
+                  param_note: order of results
+                  value: dateasc
+                  value_note: possible values are 'relevance' (default), 'dateasc', 'datedesc'
+          - heading: Get the full metadata for each record
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&reclevel=full'
+            note: Adding `reclevel=full` adds a number of additional fields to the article metadata, the actual fields added depends on the zone. In newspapers and gazettes it adds  `illustrated`, `wordCount`, `correctionCount`, `tagCount`, `commentCount`, `listCount`, `trovePageUrl`, and `pdf` (which is a link to a PDF of the whole page on which the article is published). In works it adds `tagCount`, `commentCount`, and `listCount`.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: reclevel
+                  param_note: request additional article metadata
+                  value: full
+                  value_note:
+          - heading: Include extra information in each record
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&include=tags,comments'
+            note: The accepted values for the `include` parameter differ across zones, but some values, like 'tags' and 'comments', are consistent. Other examples are included below.
+            params:
+                - param: q
+                  param_note: the search query
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note: possible values are 'xml' (default) or 'json'
+                - param: include
+                  param_note: include extra information
+                  value: tags,comments
+                  value_note: possible values include 'tags' and 'comments'; separate multiple values with commas
+          - heading: Harvesting a complete result set
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&sort_by=dateasc'
+            params:
+                - param: q
+                  param_note: the search query
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in
+                  value: newspaper
+                  value_note: you can only harvest from one zone at a time, so this must be set to a single zone such as 'newspaper'
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note: possible values are 'xml' (default) or 'json'
+                - param: bulkHarvest
+                  param_note: setting this to 'true' ensures that results will stay in the same order when you request subsequent pages; without it results might be duplicated or missing
+                  value: 'true'
+                  value_note:
+                - param: s
+                  param_note: supply a resumption token to get the next page of results
+                  value: '*'
+                  value_note: use '*' for the first request, then replace with the value of `nextStart` for subsequent results
+            note: "Three parameters are important when harvesting a complete result set: `zone` must be set to a single zone, `bulkHarvest` set to 'true', and `s` must be updated after each request with the value of `nextStart`. Note that the `nextStart` value will only appear if there is another page of results to download, so you can use it in your loop as a check to see if you've finished."
+    - heading: Searching newspapers or gazettes
+      section_note:
+      examples:
+          - heading: Limit results by article category
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&l-category=Article'
+            note: This parameter can be used multiple times, however, this will behave like an `AND` query and only those articles in *all* of the specified categories will be returned. So adding `&l-category=Article&l-category=Advertising` will return *zero* results, as no articles are in *both* the 'Article' and 'Advertising' categories.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-category
+                  param_note: category to include
+                  value: Article
+                  value_note: see Trove help documentation, or use the `category` facet for full list of possible values
+          - heading: Limit results by place of publication
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&l-state=Victoria'
+            note: This parameter can be used multiple times. Unlike the `category` facet, this will behave like an `OR` query, returning articles published in *any* of the specified places. So adding `&l-state=Victoria&l-state=ACT` will return articles published in *either* Victoria or the ACT.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-state
+                  param_note: place in which articles were published
+                  value: Victoria
+                  value_note: possible values are 'ACT', 'International', 'National', 'New South Wales', 'Northern Territory', 'Queensland', 'South Australia', 'Tasmania', 'Victoria'
+          - heading: Limit results by decade
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&l-decade=192'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-decade
+                  param_note: limit to articles from this decade
+                  value: 192
+                  value_note: 192 includes the years 1920 to 1929
+          - heading: Limit results by year
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&l-decade=192&l-year=1924'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-decade
+                  param_note: limit to articles from this decade
+                  value: 192
+                  value_note:
+                - param: l-year
+                  param_note: limit to articles from this year (`l-decade` must also be set)
+                  value: 1924
+                  value_note: limit the results to articles from 1924, the `l-decade` parameter must be set to 192
+          - heading: Limit results by month
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&l-decade=192&l-year=1924&l-month=3'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-decade
+                  param_note: limit to articles from this decade
+                  value: 192
+                  value_note:
+                - param: l-year
+                  param_note: limit to articles from this year (`l-decade` must also be set)
+                  value: 1924
+                  value_note: limit the results to articles from 1924
+                - param: l-month
+                  param_note: limit to articles from this month (`l-decade` and `l-year` must also be set)
+                  value: 3
+                  value_note: limit the results to articles from March 1924, possible values are numbers from 1 to 12
+          - heading: Find articles on a specific page of a newspaper
+            url: 'https://api.trove.nla.gov.au/v2/result?q=firstpageseq:1&zone=newspaper&encoding=json'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: firstpageseq:1
+                  value_note: use the `firstpageseq` index in the query to specify a page number, `firstpageseq:1` will find articles on page 1
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Find newspaper articles within a specific date range
+            url: 'https://api.trove.nla.gov.au/v2/result?q=date:[1942-10-31T00:00:00Z TO 1942-11-30T00:00:00Z]&zone=newspaper&encoding=json'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: date:[1942-10-31T00:00:00Z TO 1942-11-30T00:00:00Z]
+                  value_note: use the `date` index to specify a date range; the first date in the range is not included in the query, so this example searches for articles from November 1942
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Find newspaper articles from a particular day
+            url: 'https://api.trove.nla.gov.au/v2/result?q=date:[1942-11-01T00:00:00Z TO 1942-11-02T00:00:00Z]&zone=newspaper&encoding=json'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge date:[1942-11-01T00:00:00Z TO 1942-11-02T00:00:00Z]
+                  value_note: use the `date` index to specify a date range; the first date in the range is not included in the query, so this example searches for articles from 2 November 1942
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Limit to articles with illustrations
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&l-illustrated=true'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-illustrated
+                  param_note: limit to articles with illustrations
+                  value: 'true'
+                  value_note: accepted values are 'true' or 'false'
+          - heading: Limit to articles with photographs
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&l-illustrated=true&l-illtype=Photo'
+            note: This parameter can be used multiple times, however, this will behave like an `AND` query and only those articles with *all* of the specified illustration types will be returned.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-illustrated
+                  param_note: limit to articles with illustrations
+                  value: 'true'
+                  value_note: accepted values are 'true' or 'false'
+                - param: l-illtype
+                  param_note: limit to articles with this type of illustration
+                  value: 'Photo'
+                  value_note: the `l-illustrated` facet must be set to 'true'; common values include 'Photo', 'Cartoon', 'Map', and 'Illustration', set `facet` to 'illtype' to see all possible values
+          - heading: Filter articles by number of words
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&l-word=<100 Words'
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-word
+                  param_note: filter by number of words in the article
+                  value: '<100 Words'
+                  value_note: accepted values are '<100 Words', '100 - 1000 Words', or '1000+ Words'
+          - heading: Limit to articles with tags (or comments)
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge has:tags&zone=newspaper&encoding=json&include=tags'
+            note:
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge has:tags
+                  value_note: "add `has:tags` to limit to articles with tags; `has:comments` will similarly limit to articles with comments"
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: include
+                  param_note:
+                  value: tags
+                  value_note: "you need to specifically `include` tags to see the tag values; change to 'comments' to include any comments"
+          - heading: Get the OCRd text for each article
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&include=articletext'
+            note: The OCRd text is return as HTML, so depending on you use you might need to strip the tags out.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: include
+                  param_note: add additional information to the record
+                  value: articletext
+                  value_note: this adds the full OCRd text to the record, other possible values are 'tags', 'comments'
+          - heading: Get the number of articles in each category
+            url: 'https://api.trove.nla.gov.au/v2/result?q=+&zone=newspaper&encoding=json&facet=category&n=0'
+            note:
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: +
+                  value_note: "'+' is an empty search, so will return everything"
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: n
+                  param_note:
+                  value: 0
+                  value_note: we don't need results, just the facets, so we can set `n` to 0
+                - param: facet
+                  param_note: include facet data
+                  value: category
+                  value_note: break down results by category; see the Trove API documentation for a full list of facets
+          - heading: Get the number of articles per year in a decade
+            url: 'https://api.trove.nla.gov.au/v2/result?q=+&zone=newspaper&encoding=json&l-decade=192&facet=year&n=0'
+            note: For more examples using the `year` facet see [Visualise Trove newspaper searches over time](https://glam-workbench.github.io/trove-newspapers/#visualise-trove-newspaper-searches-over-time) in the GLAM Workbench.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: +
+                  value_note: "'+' is an empty search, so will return everything"
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: newspaper
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: n
+                  param_note: number of results
+                  value: 0
+                  value_note: we don't need results, just the facets, so we can set `n` to 0
+                - param: l-decade
+                  param_note: set the decade
+                  value: 192
+                  value_note: needs to be set to find the totals by year
+                - param: facet
+                  param_note: include facet data
+                  value: year
+                  value_note: break down results by year in the given decade; see the Trove API documentation for a full list of facets
+    - heading: Searching other zones
+      section_note:
+      examples:
+          - heading: Limit to works with a particular format
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather&zone=book&encoding=json&l-format=Thesis'
+            note: This parameter can be used multiple times, however, this will behave like an `AND` query and only those articles in *all* of the specified formats will be returned.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: weather
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: book
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-format
+                  param_note: format or type of work
+                  value: Thesis
+                  value_note: see the Trove help documentation for a [list of formats](https://trove.nla.gov.au/about/create-something/using-api/api-technical-guide#formats)
+          - heading: Exclude works with a particular format
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather NOT format:Book &zone=picture&encoding=json'
+            note: You can use the `format` index in both the query and as a facet, that means you can say that you *don't* want works with particular formats. This is handy for filtering out noise.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: weather NOT format:Book
+                  value_note: by adding `NOT format:Book` to the query we should filter out books
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: picture
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Limit to works created within a particular date range
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather date:[* TO 1900] &zone=book&encoding=json'
+            note:
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: weather date:[* TO 1900]
+                  value_note: using the `date` index you can specify a range of years; use '*' to indicate the earliest or latest possible dates, this example will return all works published in 1900 or before
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: book
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Limit to works with a thumbnail image
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather imageInd:thumbnail &zone=picture&encoding=json'
+            note: The actual thumbnail link is included in the `identifier` field with a `linktype` of 'thumbnail'. To ensure you get all the possible values for `identifier` you can also add `&include=links` to your query.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: weather imageInd:thumbnail
+                  value_note: set `imageInd` to 'thumbnail' to limit results to works that include a thumbnail link
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: picture
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Include metadata from all versions of a work
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=picture&encoding=json&include=workversions'
+            note: The way that versions are grouped as works in Trove can be quite confusing. The work level metadata is generally quite consistent, but it can leave out useful metadata that's attached to an individual version. The version metadata is richer, but is also less consistent, so you have to be prepared for some trial and error if you want to extract information from it.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: wragge
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: picture
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: include
+                  param_note: format of results
+                  value: workversions
+                  value_note: include the metadata for each individual version of this work
+          - heading: Find works with full text
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather fullTextInd:y&zone=article&encoding=json&include=workversions'
+            note: The `fullTextInd` index seems quite misleading as it includes articles from commercial databases where only a truncated sample of the full text is actually available, and electronic legal deposit works where access to the text is restricted. It would seem better to combine this indicator with a search for "nla.obj" or `nuc:ANL:DL` to try and limit to resources digitised by the NLA and partners.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: weather fullTextInd:y
+                  value_note: set `fullTextInd` to 'y' to return only articles with full text
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: article
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: include
+                  param_note:
+                  value: workversions
+                  value_note: the full text is buried down in the version-level metadata, so you need to add this parameter if you want to actually get to it
+          - heading: Limit to articles from a specific digitised journal (using facets)
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather&zone=article&encoding=json&l-title=The bulletin'
+            note: There's no controlled list of journal titles to use with this facet, so you probably need to get the values from the web interface.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: weather
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: article
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-title
+                  param_note: limit to this journal title
+                  value: The bulletin
+                  value_note:
+          - heading: Limit to articles from a specific digitised journal (using identifiers)
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather "https://nla.gov.au/nla.obj-68375465"&zone=article&encoding=json&l-format=Article'
+            note: An alternative to using the `title` facet is to include the identifier of the parent journal in the `q` parameter. This is how the [Trove Digitised Journals](https://trove-titles.herokuapp.com/) app works.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: weather "https://nla.gov.au/nla.obj-68375465"
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: article
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-format
+                  param_note: limit to this format
+                  value: Article
+                  value_note: limit the results to articles so we don't get the records for the periodicals themselves
+          - heading: Find out of copyright or openly licensed photographs
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather "https://nla.gov.au/nla.obj-68375465"&zone=article&encoding=json&l-format=Article'
+            note: This facet only works with records where the copyright status is specified in the record. Some out-of-copyright photographs might be missing from results because their status has not been identified. A search for photos created before 1955 using `date[* TO 1954]` might find additional out-of-copyright images.
+            params:
+                - param: q
+                  param_note: the search query (required)
+                  value: weather "https://nla.gov.au/nla.obj-68375465"
+                  value_note:
+                - param: zone
+                  param_note: zone(s) to search in (required)
+                  value: picture
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: l-format
+                  param_note: format of work
+                  value: Photo
+                  value_note:
+                - param: l-rights
+                  param_note: licensing category
+                  value: Free
+                  value_note: See the Trove help documentation for a [full list of possible values](https://trove.nla.gov.au/partners/partner-services/adding-collections-trove/enrich-your-data/licensing-and-re-use).
+    - heading: Get individual records
+      section_note: Article or work identifiers are supplied as part of the url rather than as a query parameter. For example, `https://api.trove.nla.gov.au/v2/newspaper/41697877` returns the details of the article with the identifier `41697877`.
+      examples:
+          - heading: Get a newspaper or gazette article
+            url: 'https://api.trove.nla.gov.au/v2/newspaper/41697877?encoding=json&reclevel=full&include=articletext,tags,comments'
+            note:
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: reclevel
+                  param_note: amount of detail in record
+                  value: full
+                  value_note:
+                - param: include
+                  param_note: include extra information
+                  value: articletext,tags,comments
+                  value_note: include the OCRd text, as well as any tags or comments, in the record
+          - heading: Get a work record
+            url: 'https://api.trove.nla.gov.au/v2/work/1144040?encoding=json&reclevel=full&include=workversions,tags,comments'
+            note:
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: reclevel
+                  param_note: amount of detail in record
+                  value: full
+                  value_note:
+                - param: include
+                  param_note: include extra information
+                  value: workversions,tags,comments
+                  value_note: include metadata from all grouped versions, as well as any tags or comments
+          - heading: Get a list
+            url: 'https://api.trove.nla.gov.au/v2/list/43805?encoding=json&reclevel=full&include=listitems'
+            note: You only get the brief record version for each of the list items, so to get extra information, such as OCRd text for a newspaper article, you'll have to request each article individually. Also, the list items are not paginated, so if you have a long list this will return a lot of data.
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: reclevel
+                  param_note: amount of detail in record
+                  value: full
+                  value_note:
+                - param: include
+                  param_note: include extra information
+                  value: listitems
+                  value_note: include details of all items in the list
+    - heading: Get newspaper and gazette titles
+      section_note: There's a bug in the API so that a request for newspaper titles also returns the gazette titles. See the GLAM Workbench for [a workaround](https://glam-workbench.github.io/trove-newspapers/#get-a-list-of-trove-newspapers-that-doesnt-include-government-gazettes).
+      examples:
+          - heading: Get a list of all newspaper titles
+            url: 'https://api.trove.nla.gov.au/v2/newspaper/titles?encoding=json'
+            note:
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Get a list of all gazette titles
+            url: 'https://api.trove.nla.gov.au/v2/gazette/titles?encoding=json'
+            note:
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Get a list of newspapers from a particular state
+            url: 'https://api.trove.nla.gov.au/v2/newspaper/titles?encoding=json&state=vic'
+            note:
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: state
+                  param_note: limit to this state
+                  value: vic
+                  value_note: possible values are 'nsw', 'act', 'qld', 'tas', 'sa', 'nt', 'wa', 'vic', 'national'
+          - heading: Get the number of issues per year for a particular newspaper
+            url: 'https://api.trove.nla.gov.au/v2/newspaper/title/35?encoding=json&include=years'
+            note: The newspaper identifier is included in the url as indicated. This example will return details of the *Sydney Morning Herald* which has an identifier of '35'.
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: include
+                  param_note:
+                  value: years
+                  value_note: list the years available on Trove, with the number of issues per year
+          - heading: Get details of newspaper issues within a date range
+            url: 'https://api.trove.nla.gov.au/v2/newspaper/title/35?encoding=json&include=years&range=18420101-18421231'
+            note: The issue details include a publication date and a url which redirects to the first page of the issue.
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: include
+                  param_note:
+                  value: years
+                  value_note: this needs to be included to retrieve the full issue information
+                - param: range
+                  param_note: date range of issues to return
+                  value: '18420101-18421231'
+                  value_note: dates are in YYYYMMDD format; this example will return details of all issues of the *Sydney Morning Herald* published in 1842
+    - heading: Get Trove contributors
+      section_note: Organisations can be nested under other organisations (as `children`), this makes the data structure a bit complex.
+      examples:
+          - heading: Get a list of organisations contributing data to Trove
+            url: 'https://api.trove.nla.gov.au/v2/contributor?encoding=json'
+            note:
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+          - heading: Get full details of an organisation contributing to Trove
+            url: 'https://api.trove.nla.gov.au/v2/contributor/ANL?encoding=json&reclevel=full'
+            note: The organisation's identifier is included in the url as indicated. This example retrieves details for the National Library of Australia, whose identifier is 'ANL'.
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: reclevel
+                  param_note: amount of detail to return
+                  value: full
+                  value_note:

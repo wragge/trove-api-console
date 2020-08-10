@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# schema: http://schema.org/" typeof="schema:WebPage">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trove API Console</title>
+    <meta property="og:title" content="Trove API Console" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://troveconsole.herokuapp.com/" />
+    <meta property="og:image" content="http://troveconsole.herokuapp.com/static/img/code.png" />
+    <meta property="og:description" content="Explore the workings of the Trove API with this simple console." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@wragge" />
+    <meta name="schema:thumbnailUrl" content="http://troveconsole.herokuapp.com/static/img/code.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <link href="/static/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/js/styles/github.css">
+
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title is-1">Trove API Console</h1>
+      <p class="subtitle is-3">
+        Explore the workings of the Trove API
+      </p>
+      <form class="form" action="" method="get" role="form">
+          <div class="field is-grouped">
+              <div class="control is-expanded">
+                  <input name="url" id="url" class="input is-medium" type="text" value="{{ url }}" placeholder="Your API query...">
+                  <p class="help">Enter an API query to view the results (no key required), or start with one of the examples below.</p>
+              </div>
+              <p class="control">
+                <button id="go" class="button is-primary" type="submit">
+                  Go!
+              </button>
+              </p>
+              <p class="control">
+                <a id="clear" class="button is-light">
+                  Clear
+                </a>
+              </p>
+          </div>
+      </form>
+      <div id="results" class="mt-6">
+      {% if error %}
+      <p class="notification is-danger">{{ error }}</p>
+      {% endif %}
+      {% if data %}
+        <pre><code class="{{ format }}">
+          {{ data|safe }}
+        </code></pre>
+      {% endif %}
+      </div>
+      <div class="">
+          <h2 class="title is-2 mt-6">Examples</h2>
+          <p>
+              Click on any of the examples below to open them in this console, then modify them to suit. If you want to use them in your own code you'll need to <a href="https://trove.nla.gov.au/about/create-something/using-api">get an API key</a> and add <code>&amp;key=[Your API key]</code> to the url.
+          </p>
+          <p class="mt-4">
+              See the Trove <a href="https://trove.nla.gov.au/about/create-something/using-api/api-technical-guide">API documentation</a> for a full list of available parameters and detailed information on constructing queries.
+          </p>
+
+          <p class="mt-4">
+              For more examples, tools, and hacks using the Trove API see the <a href="https://glam-workbench.github.io/">GLAM Workbench</a>.
+          </p>
+
+          <div class="columns">
+              <div class="column is-one-fifth">
+                  <aside class="menu mt-6">
+                      {% for section in examples.sections %}
+                      <p class="menu-label">
+                        {{ section.heading }}
+                      </p>
+                      <ul class="menu-list">
+                         {% for example in section.examples %}
+                            <li><a href="#{{ example.heading|slugified }}">{{ example.heading }}</a></li>
+                         {% endfor %}
+                      </ul>
+                      {% endfor %}
+                  </aside>
+              </div>
+              <div class="column">
+            {% for section in examples.sections %}
+              <h3 class="title is-3 mt-6">{{section.heading}}</h3>
+              {% if section.section_note %}
+              <p>
+                  {{ section.section_note|markdown }}
+              </p>
+              {% endif %}
+              {% for example in section.examples %}
+                  <h4 id="{{ example.heading|slugified }}" class="title is-5 mt-6 mb-4">{{ example.heading }}</h4>
+                  <p class="mb-4">
+                      <a href="/?url={{ example.url|urlencode}}"><span class="icon has-text-link"><i class="fas fa-arrow-circle-right"></i></span> {{ example.url }}</a>
+                  </p>
+                  <table class="table is-bordered is-hoverable is-fullwidth">
+                      <thead>
+                          <tr>
+                            <th>parameter</th>
+                            <th>parameter note</th>
+                            <th>value</th>
+                            <th>value note</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for param in example.params %}
+                              <tr>
+                                  <td>
+                                      <code>{{ param.param }}</code>
+                                  </td>
+                                  <td>
+                                      {% if param.param_note %}{{ param.param_note|markdown }}{% endif %}
+                                  </td>
+                                  <td>
+                                      <code>{{ param.value}}</code>
+                                  </td>
+                                  <td>
+                                      {% if param.value_note %}{{ param.value_note|markdown }}{% endif %}
+                                  </td>
+                              </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                  {% if example.note %}
+                  <p>
+                      {{ example.note|markdown }}
+                  </p>
+                  {% endif %}
+              {% endfor %}
+          {% endfor %}
+          </div>
+      </div>
+      </div>
+      <footer class="footer mt-6">
+        <div class="content has-text-centered">
+            <p><span property="schema:creator" typeof="schema:Person">Created by <a property="schema:sameAs" href="https://timsherratt.org/"><span property="schema:name">Tim Sherratt</span></a> (<a property="schema:sameAs" href="http://twitter.com/wragge">@wragge</a>).</span></p>
+            <p class="mt-4">
+                If you find this project useful, you might like to <a href="https://www.patreon.com/timsherratt">support me on Patreon</a>.
+            </p>
+        </div>
+      </footer>
+</div>
+  </section>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="/static/js/highlight.pack.js"></script>
+  <script src="/static/js/vkbeautify.js"></script>
+  <script>
+    $(function(){
+      hljs.configure({
+          //classPrefix: 'hljs-'     // don't append class prefix
+      });
+      $('pre code').each(function(i, e) {
+        {% if format == 'xml' %}
+          $(e).text(vkbeautify.xml($(e).text()));
+        {% else %}
+          $(e).text(vkbeautify.json($(e).text()));
+        {% endif %}
+        hljs.highlightBlock(e);
+      });
+    });
+  </script>
+  <script src="/static/js/script.js"></script>
+  </body>
+</html>
