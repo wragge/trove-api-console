@@ -503,7 +503,7 @@ sections:
                   value: json
                   value_note:
           - heading: Limit to works created within a particular date range
-            url: 'https://api.trove.nla.gov.au/v2/result?q=weather date:[* TO 1900] &zone=book&encoding=json'
+            url: 'https://api.trove.nla.gov.au/v2/result?q=weather date:[* TO 1900]&zone=book&encoding=json'
             note:
             params:
                 - param: q
