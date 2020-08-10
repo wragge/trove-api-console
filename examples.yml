@@ -129,7 +129,7 @@ sections:
                   value: tags,comments
                   value_note: possible values include 'tags' and 'comments'; separate multiple values with commas
           - heading: Harvesting a complete result set
-            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&sort_by=dateasc'
+            url: 'https://api.trove.nla.gov.au/v2/result?q=wragge&zone=newspaper&encoding=json&bulkHarvest=true&s=*'
             params:
                 - param: q
                   param_note: the search query
