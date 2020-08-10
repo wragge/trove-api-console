@@ -1,7 +1,7 @@
-#Trove API Console
+# Trove API Console
 
-A simple console for exploring the [Trove API](http://help.nla.gov.au/trove/building-with-trove/api).
+A simple console for exploring the [Trove API](https://trove.nla.gov.au/about/create-something/using-api).
 
 See it in action at: http://troveconsole.herokuapp.com
 
-To run your own version you need to get yourself a Trove API key and set it as the value of TROVE_API_KEY in an environment variable. See the [Heroku docs](https://devcenter.heroku.com/articles/heroku-local) for information on setting this up.
+The examples are all stored in the `examples.yml` file. If you'd like to add examples, fork this repository, edit `examples.yml`, and then create a pull request.
