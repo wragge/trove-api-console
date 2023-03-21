@@ -16,17 +16,18 @@ app = Flask(__name__)
 md = Misaka()
 md.init_app(app)
 
-@app.route('/', methods=['GET'])
-def show_api_results():
+def get_url(request):
     error = ''
     data = ''
     format = ''
-    examples = yaml.load(Path('examples.yml').read_text())
     url = request.args.get('url', '')
     if url:
         url = unquote_plus(url)
         if re.search(r'^https?:\/\/api\.trove\.nla\.gov\.au', url):
-            format = 'json' if 'json' in url else 'xml'
+            if 'v3' in request.path:
+                format = 'xml' if 'xml' in url else 'json'
+            else:
+                format = 'json' if 'json' in url else 'xml'
             api_url = '{}&key={}'.format(url, TROVE_API_KEY) if '?' in url else '{}?key={}'.format(url, TROVE_API_KEY)
             try:
                 # response = urlopen(quote_plus(api_url, safe="%/:=&?~#+!$,;'@()*[]"))
@@ -38,7 +39,19 @@ def show_api_results():
                 data = response.text.replace('<', '&lt;').replace('>', '&gt;')
         else:
             error = 'Error: That doesn''t look like a valid Trove url.'
+    return url, data, error, format
+
+@app.route('/', methods=['GET'])
+def show_api_results():
+    examples = yaml.safe_load(Path('examples.yml').read_text())
+    url, data, error, format = get_url(request)
     return render_template('new_results.html', url=url, data=data, error=error, format=format, examples=examples)
+
+@app.route('/v3/', methods=['GET'])
+def show_api_v3_results():
+    examples = yaml.safe_load(Path('examples-v3.yml').read_text())
+    url, data, error, format = get_url(request)
+    return render_template('new_results_v3.html', url=url, data=data, error=error, format=format, examples=examples)
 
 @app.template_filter()
 def slugified(value):

@@ -1,0 +1,8 @@
+flask
+gunicorn
+python-dotenv
+Flask-Misaka
+PyYAML
+requests
+python-slugify
+pytest
