@@ -752,7 +752,7 @@ sections:
       section_note: Organisations can be nested under other organisations (as `children`), this makes the data structure a bit complex.
       examples:
           - heading: Get a list of organisations contributing data to Trove
-            url: 'https://api.trove.nla.gov.au/v3/contributor?q=encoding=json'
+            url: 'https://api.trove.nla.gov.au/v3/contributor?q=&encoding=json'
             note:
             params:
                 - param: q
