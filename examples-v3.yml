@@ -2,7 +2,7 @@ sections:
     - heading: Basic search
       section_note:
       examples:
-          - heading: Search all categorys
+          - heading: Search all categories
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=all'
             params:
                 - param: q
@@ -13,7 +13,7 @@ sections:
                   param_note: category(ies) to search in (**required**)
                   value: all
                   value_note: possible values are 'all', 'newspaper', 'magazine', 'image', 'research', 'book', 'diary', 'music', 'people', 'list'
-          - heading: Search in multiple categorys
+          - heading: Search in multiple categories
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=book,newspaper'
             params:
                 - param: q
@@ -748,6 +748,17 @@ sections:
                   param_note: date range of issues to return
                   value: '18420101-18421231'
                   value_note: dates are in YYYYMMDD format; this example will return details of all issues of the *Sydney Morning Herald* published in 1842
+    - heading: Get magazine and newsletter titles
+      section_note: Although this endpoint is included in the technical documention, as of 23 May 2023 it was returning no results. Hopefully it'll start working soon!
+      examples:
+          - heading: Get a list of all magazine and newsletter titles
+            url: 'https://api.trove.nla.gov.au/v3/magazine/titles?encoding=json'
+            note:
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
     - heading: Get Trove contributors
       section_note: Organisations can be nested under other organisations (as `children`), this makes the data structure a bit complex.
       examples:
@@ -774,4 +785,15 @@ sections:
                 - param: reclevel
                   param_note: amount of detail to return
                   value: full
+                  value_note:
+    - heading: Get recently deleted records
+      section_note: Although this endpoint is included in the technical documention, as of 23 May 2023 it was returning a 404 error. Hopefully it'll start working soon!
+      examples:
+          - heading: Get a list of recently deleted records
+            url: 'https://api.trove.nla.gov.au/v3/deletions?encoding=json'
+            note:
+            params:
+                - param: encoding
+                  param_note: format of results
+                  value: json
                   value_note:
