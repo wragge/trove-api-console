@@ -6,9 +6,8 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=all'
             params:
                 - param: q
-                  param_note: the search query (**required**)
+                  param_note: the search query (**optional**)
                   value: wragge
-                  value_note: use '%00' to get everything
                 - param: category
                   param_note: category(ies) to search in (**required**)
                   value: all
@@ -17,7 +16,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=book,newspaper'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -28,7 +27,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -93,7 +92,7 @@ sections:
             note: Adding `reclevel=full` adds a number of additional fields to the article metadata, the actual fields added depends on the category. In newspapers and gazettes it adds  `illustrated`, `wordCount`, `correctionCount`, `tagCount`, `commentCount`, `listCount`, `trovePageUrl`, and `pdf` (which is a link to a PDF of the whole page on which the article is published). In works it adds `tagCount`, `commentCount`, and `listCount`.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -160,7 +159,7 @@ sections:
             note: This parameter can be used multiple times, however, this will behave like an `AND` query and only those articles in *all* of the specified categories will be returned. So adding `&l-category=Article&l-category=Advertising` will return *zero* results, as no articles are in *both* the 'Article' and 'Advertising' categories.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -180,7 +179,7 @@ sections:
             note: This parameter can be used multiple times. Unlike the `category` facet, this will behave like an `OR` query, returning articles published in *any* of the specified places. So adding `&l-state=Victoria&l-state=ACT` will return articles published in *either* Victoria or the ACT.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -199,7 +198,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-decade=192'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -218,7 +217,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-decade=192&l-year=1924'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -241,7 +240,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-decade=192&l-year=1924&l-month=3'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -268,7 +267,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=firstpageseq:1&category=newspaper&encoding=json'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: firstpageseq:1
                   value_note: use the `firstpageseq` index in the query to specify a page number, `firstpageseq:1` will find articles on page 1
                 - param: category
@@ -283,7 +282,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=date:[1942-10-31T00:00:00Z TO 1942-11-30T00:00:00Z]&category=newspaper&encoding=json'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: date:[1942-10-31T00:00:00Z TO 1942-11-30T00:00:00Z]
                   value_note: use the `date` index to specify a date range; the first date in the range is not included in the query, so this example searches for articles from November 1942
                 - param: category
@@ -298,7 +297,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=date:[1942-11-01T00:00:00Z TO 1942-11-02T00:00:00Z]&category=newspaper&encoding=json'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge date:[1942-11-01T00:00:00Z TO 1942-11-02T00:00:00Z]
                   value_note: use the `date` index to specify a date range; the first date in the range is not included in the query, so this example searches for articles from 2 November 1942
                 - param: category
@@ -313,7 +312,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-illustrated=true'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -333,7 +332,7 @@ sections:
             note: This parameter can be used multiple times, however, this will behave like an `AND` query and only those articles with *all* of the specified illustration types will be returned.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -356,7 +355,7 @@ sections:
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-word=<100 Words'
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -376,7 +375,7 @@ sections:
             note:
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge has:tags
                   value_note: "add `has:tags` to limit to articles with tags; `has:comments` will similarly limit to articles with comments"
                 - param: category
@@ -396,7 +395,7 @@ sections:
             note: The OCRd text is return as HTML, so depending on you use you might need to strip the tags out.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -416,7 +415,7 @@ sections:
             note:
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: "%00"
                   value_note: "'%00' is an empty search, so will return everything"
                 - param: category
@@ -440,7 +439,7 @@ sections:
             note: For more examples using the `year` facet see [Visualise Trove newspaper searches over time](https://glam-workbench.github.io/trove-newspapers/#visualise-trove-newspaper-searches-over-time) in the GLAM Workbench.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: "%00"
                   value_note: "'%00' is an empty search, so will return everything"
                 - param: category
@@ -471,7 +470,7 @@ sections:
             note: This parameter can be used multiple times, however, this will behave like an `AND` query and only those articles in *all* of the specified formats will be returned.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: weather
                   value_note:
                 - param: category
@@ -491,7 +490,7 @@ sections:
             note: You can use the `format` index in both the query and as a facet, that means you can say that you *don't* want works with particular formats. This is handy for filtering out noise.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: weather NOT format:Book
                   value_note: by adding `NOT format:Book` to the query we should filter out books
                 - param: category
@@ -507,7 +506,7 @@ sections:
             note:
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: weather date:[* TO 1900]
                   value_note: using the `date` index you can specify a range of years; use '*' to indicate the earliest or latest possible dates, this example will return all works published in 1900 or before
                 - param: category
@@ -523,7 +522,7 @@ sections:
             note: The actual thumbnail link is included in the `identifier` field with a `linktype` of 'thumbnail'. To ensure you get all the possible values for `identifier` you can also add `&include=links` to your query.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: weather imageInd:thumbnail
                   value_note: set `imageInd` to 'thumbnail' to limit results to works that include a thumbnail link
                 - param: category
@@ -539,7 +538,7 @@ sections:
             note: The way that versions are grouped as works in Trove can be quite confusing. The work level metadata is generally quite consistent, but it can leave out useful metadata that's attached to an individual version. The version metadata is richer, but is also less consistent, so you have to be prepared for some trial and error if you want to extract information from it.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: wragge
                   value_note:
                 - param: category
@@ -559,7 +558,7 @@ sections:
             note: The `fullTextInd` index seems quite misleading as it includes articles from commercial databases where only a truncated sample of the full text is actually available, and electronic legal deposit works where access to the text is restricted. It would seem better to combine this indicator with a search for "nla.obj" or `nuc:ANL:DL` to try and limit to resources digitised by the NLA and partners.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: weather fullTextInd:y
                   value_note: set `fullTextInd` to 'y' to return only articles with full text
                 - param: category
@@ -579,7 +578,7 @@ sections:
             note: There's no controlled list of journal titles to use with this facet, so you probably need to get the values from the web interface.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: weather
                   value_note:
                 - param: category
@@ -599,7 +598,7 @@ sections:
             note: An alternative to using the `title` facet is to include the identifier of the parent journal in the `q` parameter. This is how the [Trove Digitised Journals](https://trove-titles.herokuapp.com/) app works.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: weather "https://nla.gov.au/nla.obj-68375465"
                   value_note:
                 - param: category
@@ -619,7 +618,7 @@ sections:
             note: This facet only works with records where the copyright status is specified in the record. Some out-of-copyright photographs might be missing from results because their status has not been identified. A search for photos created before 1955 using `date[* TO 1954]` might find additional out-of-copyright images.
             params:
                 - param: q
-                  param_note: the search query (required)
+                  param_note: the search query (optional)
                   value: rights:Free
                   value_note: see the Trove help documentation for a [full list of possible values](https://trove.nla.gov.au/partners/partner-services/adding-collections-trove/enrich-your-data/licensing-and-re-use) for `rights`
                 - param: category
@@ -767,7 +766,7 @@ sections:
             note:
             params:
                 - param: q
-                  param_note: search query (required)
+                  param_note: search query (optional)
                   value: ""
                   value_note: leave blank for everything
                 - param: encoding
