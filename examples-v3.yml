@@ -637,6 +637,49 @@ sections:
                   param_note:
                   value: workversions
                   value_note: the rights statements are attached to versions, so to see them you need to ask for the full versions data
+    - heading: Get facets
+      section_note: Facets break the result set into sections and can provide a useful overview. Note that there are limits on the number of facets returned, so they might not include the whole result set.
+      examples:
+          - heading: Facet results by decade
+            url: 'https://api.trove.nla.gov.au/v3/result?category=all&facet=decade&n=0&encoding=json'
+            note:
+            params:
+                - param: category
+                  param_note: category(ies) to search in (required)
+                  value: all
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: facet
+                  param_note: facet to return
+                  value: decade
+                  value_note:
+                - param: n
+                  param_note: number of results
+                  value: 0
+                  value_note: We just want facets, not the list of results.
+          - heading: Facet results by contributor
+            url: 'https://api.trove.nla.gov.au/v3/result?category=all&facet=partnerNUC&n=0&encoding=json'
+            note: Contributors are identified by NUC identifiers.
+            params:
+                - param: category
+                  param_note: category(ies) to search in (required)
+                  value: all
+                  value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note:
+                - param: facet
+                  param_note: facet to return
+                  value: partnerNUC
+                  value_note:
+                - param: n
+                  param_note: number of results
+                  value: 0
+                  value_note: We just want facets, not the list of results.
     - heading: Get individual records
       section_note: Article or work identifiers are supplied as part of the url rather than as a query parameter. For example, `https://api.trove.nla.gov.au/v3/newspaper/41697877` returns the details of the article with the identifier `41697877`.
       examples:
