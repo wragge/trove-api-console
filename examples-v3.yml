@@ -661,7 +661,7 @@ sections:
                   value: 0
                   value_note: We just want facets, not the list of results.
           - heading: Facet results by contributor
-            url: 'https://api.trove.nla.gov.au/v3/result?category=all&facet=partnerNUC&n=0&encoding=json'
+            url: 'https://api.trove.nla.gov.au/v3/result?category=all&facet=partnerNuc&n=0&encoding=json'
             note: Contributors are identified by NUC identifiers.
             params:
                 - param: category
@@ -674,7 +674,7 @@ sections:
                   value_note:
                 - param: facet
                   param_note: facet to return
-                  value: partnerNUC
+                  value: partnerNuc
                   value_note:
                 - param: n
                   param_note: number of results
