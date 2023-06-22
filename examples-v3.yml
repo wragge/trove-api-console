@@ -3,7 +3,7 @@ sections:
       section_note:
       examples:
           - heading: Search all categories
-            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=all'
+            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=all&encoding=json'
             params:
                 - param: q
                   param_note: the search query (**optional**)
@@ -12,8 +12,12 @@ sections:
                   param_note: category(ies) to search in (**required**)
                   value: all
                   value_note: possible values are 'all', 'newspaper', 'magazine', 'image', 'research', 'book', 'diary', 'music', 'people', 'list'
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note: possible values are 'xml' (default) or 'json'
           - heading: Search in multiple categories
-            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=book,newspaper'
+            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=book,newspaper&encoding=json'
             params:
                 - param: q
                   param_note: the search query (optional)
@@ -23,8 +27,12 @@ sections:
                   param_note: category(ies) to search in (required)
                   value: book,newspaper
                   value_note: separate multiple categorys with commas
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note: possible values are 'xml' (default) or 'json'
           - heading: Search in a single category
-            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper'
+            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json'
             params:
                 - param: q
                   param_note: the search query (optional)
@@ -34,6 +42,10 @@ sections:
                   param_note: category(ies) to search in (required)
                   value: newspaper
                   value_note:
+                - param: encoding
+                  param_note: format of results
+                  value: json
+                  value_note: possible values are 'xml' (default) or 'json'
           - heading: Change the results format
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json'
             params:
