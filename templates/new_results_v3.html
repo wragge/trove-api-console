@@ -13,7 +13,7 @@
     <meta name="twitter:site" content="@wragge" />
     <meta name="schema:thumbnailUrl" content="http://troveconsole.herokuapp.com/static/img/code.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    <link href="/static/css/all.css" rel="stylesheet">
+    <link href="/static/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/js/styles/github.css">
     <link rel="stylesheet" href="/static/js/styles/monokai-sublime.css">
 
@@ -25,6 +25,11 @@
       <p class="subtitle is-3">
         Explore the workings of the Trove API (v3 beta)
       </p>
+      {% if comment %}
+      <div id="comment" class="content">
+        <p>{{comment}}</p>
+      </div>
+      {% endif %}
       <form class="form" action="" method="get" role="form">
           <div class="field is-grouped">
               <div class="control is-expanded">
@@ -41,8 +46,27 @@
                   Clear
                 </a>
               </p>
+              <p class="control">
+                <a class="js-modal-trigger button is-link is-light" data-target="modal-js-example"">
+                  Share
+                </a>
+              </p>
           </div>
       </form>
+      <div id="modal-js-example" class="modal">
+        <div class="modal-background"></div>
+      
+        <div class="modal-content">
+          <div class="box">
+            <p class="subtitle is-4">Share this API example</p>
+            <!-- Your content -->
+            <textarea id="share-comment" class="textarea is-small" placeholder="Add a comment..."></textarea>
+            <p class="control mt-5"><button id="copy" class="button is-link is-small">Copy share url</button> <span class="is-size-7 has-text-link" id="copy-status" style="display: none;">Url copied!</span></p>
+          </div>
+        </div>
+      
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
       <div id="results" class="mt-6">
       {% if error %}
       <p class="notification is-danger">{{ error }}</p>
@@ -164,5 +188,6 @@
     });
   </script>
   <script src="/static/js/script.js"></script>
+  <script src="/static/js/modal.js"></script>
   </body>
 </html>

@@ -39,7 +39,10 @@ def get_url(request):
                 data = response.text.replace('<', '&lt;').replace('>', '&gt;')
         else:
             error = 'Error: That doesn''t look like a valid Trove url.'
-    return url, data, error, format
+    comment = request.args.get('comment', '')
+    if comment:
+        comment = unquote_plus(comment)
+    return url, data, error, format, comment
 
 @app.route('/', methods=['GET'])
 def show_api_results():
@@ -50,8 +53,8 @@ def show_api_results():
 @app.route('/v3/', methods=['GET'])
 def show_api_v3_results():
     examples = yaml.safe_load(Path('examples-v3.yml').read_text())
-    url, data, error, format = get_url(request)
-    return render_template('new_results_v3.html', url=url, data=data, error=error, format=format, examples=examples)
+    url, data, error, format, comment = get_url(request)
+    return render_template('new_results_v3.html', url=url, data=data, error=error, format=format, examples=examples, comment=comment)
 
 @app.template_filter()
 def slugified(value):
