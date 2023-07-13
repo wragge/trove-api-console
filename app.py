@@ -47,7 +47,7 @@ def get_url(request):
 @app.route('/', methods=['GET'])
 def show_api_results():
     examples = yaml.safe_load(Path('examples.yml').read_text())
-    url, data, error, format = get_url(request)
+    url, data, error, format, _ = get_url(request)
     return render_template('new_results.html', url=url, data=data, error=error, format=format, examples=examples)
 
 @app.route('/v3/', methods=['GET'])
