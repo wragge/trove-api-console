@@ -1,7 +1,7 @@
 from flask import Flask
 import requests
 from requests.exceptions import HTTPError
-from urllib.parse import unquote_plus, quote_plus
+from urllib.parse import unquote_plus, quote_plus, parse_qs, urlsplit
 import re
 from flask import request, render_template
 import os
@@ -20,9 +20,12 @@ def get_url(request):
     error = ''
     data = ''
     format = ''
+    query_params = ''
     url = request.args.get('url', '')
     if url:
         url = unquote_plus(url)
+        query = urlsplit(url).query
+        query_params = parse_qs(query)
         if re.search(r'^https?:\/\/api\.trove\.nla\.gov\.au', url):
             if 'v3' in request.path:
                 format = 'xml' if 'xml' in url else 'json'
@@ -42,19 +45,19 @@ def get_url(request):
     comment = request.args.get('comment', '')
     if comment:
         comment = unquote_plus(comment)
-    return url, data, error, format, comment
+    return url, data, error, format, comment, query_params
 
 @app.route('/', methods=['GET'])
 def show_api_results():
     examples = yaml.safe_load(Path('examples.yml').read_text())
-    url, data, error, format, _ = get_url(request)
+    url, data, error, format, _, _ = get_url(request)
     return render_template('new_results.html', url=url, data=data, error=error, format=format, examples=examples)
 
 @app.route('/v3/', methods=['GET'])
 def show_api_v3_results():
     examples = yaml.safe_load(Path('examples-v3.yml').read_text())
-    url, data, error, format, comment = get_url(request)
-    return render_template('new_results_v3.html', url=url, data=data, error=error, format=format, examples=examples, comment=comment)
+    url, data, error, format, comment, query_params = get_url(request)
+    return render_template('new_results_v3.html', url=url, data=data, error=error, format=format, examples=examples, comment=comment, query_params=query_params)
 
 @app.template_filter()
 def slugified(value):

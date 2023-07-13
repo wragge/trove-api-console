@@ -67,7 +67,22 @@
       
         <button class="modal-close is-large" aria-label="close"></button>
       </div>
-      <div id="results" class="mt-6">
+      {% if query_params %}
+      <table class="table is-bordered is-hoverable mt-5">
+        <thead>
+            <tr>
+              <th>parameter</th>
+              <th>value</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for p, v in query_params.items() %}
+            <tr><td><code>{{p}}</code></td><td>{{v | join(", ")}}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+      <div id="results" class="mt-5">
       {% if error %}
       <p class="notification is-danger">{{ error }}</p>
       {% endif %}
