@@ -20,7 +20,7 @@ $(function(){
 		let baseUrl = window.location.href.split('#')[0];
 		let shareUrl = baseUrl + "&comment=" + comment;
 		let siteUrl = window.location.href.split('?')[0].replace("v3/", "");
-		let buttonText = "[![" + siteUrl + "static/img/try-trove-api-console.svg" + "]](" + shareUrl + ")";
+		let buttonText = "[![Try it!](" + siteUrl + "static/img/try-trove-api-console.svg" + ")](" + shareUrl + ")";
 		console.log(buttonText);
 		navigator.clipboard.writeText(buttonText);
 		$("#copy-status").fadeIn().delay( 5000 ).fadeOut( 400 )
