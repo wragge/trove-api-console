@@ -120,7 +120,7 @@ sections:
                   value: full
                   value_note:
           - heading: Include extra information in each record
-            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&include=tags,comments'
+            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&include=tags&include=comments'
             note: The accepted values for the `include` parameter differ across categorys, but some values, like 'tags' and 'comments', are consistent. Other examples are included below.
             params:
                 - param: q
@@ -137,8 +137,12 @@ sections:
                   value_note: possible values are 'xml' (default) or 'json'
                 - param: include
                   param_note: include extra information
-                  value: tags,comments
-                  value_note: possible values include 'tags' and 'comments'; separate multiple values with commas
+                  value: tags
+                  value_note: possible values include 'tags', 'comments', and 'lists'; repeat parameter for multiple values
+                - param: include
+                  param_note: include extra information
+                  value: comments
+                  value_note: possible values include 'tags', 'comments', and 'lists'; repeat parameter for multiple values
           - heading: Harvesting a complete result set
             url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&bulkHarvest=true&s=*'
             params:
@@ -840,14 +844,4 @@ sections:
                   param_note: amount of detail to return
                   value: full
                   value_note:
-    - heading: Get recently deleted records
-      section_note: Although this endpoint is included in the technical documention, as of 23 May 2023 it was returning a 404 error. Hopefully it'll start working soon!
-      examples:
-          - heading: Get a list of recently deleted records
-            url: 'https://api.trove.nla.gov.au/v3/deletions?encoding=json'
-            note:
-            params:
-                - param: encoding
-                  param_note: format of results
-                  value: json
-                  value_note:
+
