@@ -23,7 +23,7 @@
     <div class="container">
       <h1 class="title is-1">Trove API Console</h1>
       <p class="subtitle is-3">
-        Explore the workings of the Trove API (v3 beta)
+        Explore the workings of the Trove API (v3)
       </p>
       {% if comment %}
       <div id="comment" class="content">
@@ -67,6 +67,7 @@
       
         <button class="modal-close is-large" aria-label="close"></button>
       </div>
+      <div id="qparams">
       {% if query_params %}
       <table class="table is-bordered is-hoverable mt-5">
         <thead>
@@ -82,6 +83,7 @@
         </tbody>
       </table>
       {% endif %}
+      </div>
       <div id="results" class="mt-5">
       {% if error %}
       <p class="notification is-danger">{{ error }}</p>
@@ -93,19 +95,22 @@
       {% endif %}
       </div>
       <div class="">
+          <p class="mt-4">
+            Version 3 of the API was made available in July 2023. For more information about the changes made in version 3 see <a href="https://trove.nla.gov.au/sites/default/files/attachments/2023-07/Introducing%20Trove%20API%20v3%20-%20Release%203%20updated.pdf">the official release notes</a>. I've also created a <a href="https://glam-workbench.net/trove-api-v3/">summary of breaking changes</a> for users wanting to update their code from version 2 to version 3.
+          </p>
           <h2 id="examples" class="title is-2 mt-6">Examples</h2>
           <p>
-              Click on any of the examples below to open them in this console, then modify them to suit. If you want to use them in your own code you'll need to <a href="https://trove.nla.gov.au/about/create-something/using-api">get an API key</a> and add <code>&amp;key=[Your API key]</code> to the url.
-          </p>
-          <p class="mt-4">
-              This is a temporary extension to the Trove API Console to help you explore changes coming to the Trove API in version 3. For more information about the changes see <a href="https://trove.nla.gov.au/sites/default/files/2023-03/Introducing%20Trove%20API%20v3_0.pdf">the official release notes</a> for the v3 beta release. I've also created a <a href="https://gist.github.com/wragge/342afc90c6d784ca7fcfa3e902dddd3b">summary of breaking changes</a>.
+              Click on any of the examples below to open them in this console, then modify them to suit. If you want to use them in your own code you'll need to <a href="https://trove.nla.gov.au/about/create-something/using-api">get an API key</a> and add the key to your request either using the <code>key</code> parameter, or setting <code>X-API-KEY</code> in the request headers.
           </p>
           <p class="mt-4">
               See the Trove <a href="https://trove.nla.gov.au/about/create-something/using-api/v3/api-technical-guide">API v3 documentation</a> for a full list of available parameters and detailed information on constructing queries.
           </p>
 
           <p class="mt-4">
-              For more examples, tools, and hacks using the Trove API see the <a href="https://glam-workbench.github.io/">GLAM Workbench</a>.
+              For more examples, tools, and hacks using the Trove API see the <a href="https://glam-workbench.net">GLAM Workbench</a>.
+          </p>
+          <p class="mt-4">
+            See the <a href="http://glam-workbench.net/trove-api-test/">Trove API v3 status page</a> to check for problems.
           </p>
 
           <div class="columns">
@@ -176,9 +181,9 @@
       </div>
       <footer class="footer mt-6">
         <div class="content has-text-centered">
-            <p><span property="schema:creator" typeof="schema:Person">Created by <a property="schema:sameAs" href="https://timsherratt.org/"><span property="schema:name">Tim Sherratt</span></a> (<a property="schema:sameAs" href="http://twitter.com/wragge">@wragge</a>).</span></p>
+            <p><span property="schema:creator" typeof="schema:Person">Created by <a property="schema:sameAs" href="https://timsherratt.org/"><span property="schema:name">Tim Sherratt</span></a> (<a property="schema:sameAs" href="https://hcommons.social/@wragge">@wragge@hcommons.social</a>).</span></p>
             <p class="mt-4">
-                If you find this project useful, you might like to <a href="https://www.patreon.com/timsherratt">support me on Patreon</a>.
+                If you find this project useful, you might like to <a href="https://github.com/sponsors/wragge">sponsor me on GitHub</a>.
             </p>
         </div>
       </footer>

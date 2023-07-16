@@ -3,7 +3,7 @@ import requests
 from requests.exceptions import HTTPError
 from urllib.parse import unquote_plus, quote_plus, parse_qs, urlsplit
 import re
-from flask import request, render_template
+from flask import request, render_template, redirect, url_for
 import os
 from pathlib import Path
 import yaml
@@ -47,17 +47,22 @@ def get_url(request):
         comment = unquote_plus(comment)
     return url, data, error, format, comment, query_params
 
-@app.route('/', methods=['GET'])
+@app.route('/v2/', methods=['GET'])
 def show_api_results():
     examples = yaml.safe_load(Path('examples.yml').read_text())
     url, data, error, format, _, _ = get_url(request)
     return render_template('new_results.html', url=url, data=data, error=error, format=format, examples=examples)
 
 @app.route('/v3/', methods=['GET'])
+@app.route('/', methods=['GET'])
 def show_api_v3_results():
-    examples = yaml.safe_load(Path('examples-v3.yml').read_text())
-    url, data, error, format, comment, query_params = get_url(request)
-    return render_template('new_results_v3.html', url=url, data=data, error=error, format=format, examples=examples, comment=comment, query_params=query_params)
+    if "/v2/" in request.args.get("url", ""):
+        return redirect(url_for('show_api_results', **request.args))
+    else:
+        examples = yaml.safe_load(Path('examples-v3.yml').read_text())
+        url, data, error, format, comment, query_params = get_url(request)
+        return render_template('new_results_v3.html', url=url, data=data, error=error, format=format, examples=examples, comment=comment, query_params=query_params)
+
 
 @app.template_filter()
 def slugified(value):
