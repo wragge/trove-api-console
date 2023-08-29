@@ -344,7 +344,7 @@ sections:
                   value: 'true'
                   value_note: accepted values are 'true' or 'false'
           - heading: Limit to articles with photographs
-            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-illustrated=true&l-illtype=Photo'
+            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-illustrated=true&l-illustrationType=Photo'
             note: This parameter can be used multiple times, however, this will behave like an `AND` query and only those articles with *all* of the specified illustration types will be returned.
             params:
                 - param: q
@@ -363,12 +363,12 @@ sections:
                   param_note: limit to articles with illustrations
                   value: 'true'
                   value_note: accepted values are 'true' or 'false'
-                - param: l-illtype
+                - param: l-illustrationType
                   param_note: limit to articles with this type of illustration
                   value: 'Photo'
-                  value_note: the `l-illustrated` facet must be set to 'true'; common values include 'Photo', 'Cartoon', 'Map', and 'Illustration', set `facet` to 'illtype' to see all possible values
+                  value_note: the `l-illustrated` facet must be set to 'true'; common values include 'Photo', 'Cartoon', 'Map', and 'Illustration', set `facet` to 'illustrationType' to see all possible values
           - heading: Filter articles by number of words
-            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-word=<100 Words'
+            url: 'https://api.trove.nla.gov.au/v3/result?q=wragge&category=newspaper&encoding=json&l-wordCount=<100 Words'
             params:
                 - param: q
                   param_note: the search query (optional)
@@ -382,7 +382,7 @@ sections:
                   param_note: format of results
                   value: json
                   value_note:
-                - param: l-word
+                - param: l-wordCount
                   param_note: filter by number of words in the article
                   value: '<100 Words'
                   value_note: accepted values are '<100 Words', '100 - 1000 Words', or '1000+ Words'
